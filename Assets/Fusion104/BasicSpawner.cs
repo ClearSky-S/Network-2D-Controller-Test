@@ -66,10 +66,12 @@ namespace Fusion104
 
 		private bool _mouseButton0;
 		private bool _mouseButton1;
+		private bool _jump;
 		private void Update()
 		{
 			_mouseButton0 = _mouseButton0 || Input.GetMouseButton(0);
 			_mouseButton1 = _mouseButton1 || Input.GetMouseButton(1);
+			_jump = _jump || Input.GetKey(KeyCode.Space);
 		}
 
 		public void OnInput(NetworkRunner runner, NetworkInput input)
@@ -87,6 +89,10 @@ namespace Fusion104
 
 			if (Input.GetKey(KeyCode.D))
 				data.direction += Vector3.right;
+			
+			if(_jump)
+				data.buttons |= NetworkInputData.JUMP;
+			_jump=false;
 			
 			if (_mouseButton0)
 				data.buttons |= NetworkInputData.MOUSEBUTTON1;

@@ -29,6 +29,7 @@ namespace Fusion104
 				if (data.direction.sqrMagnitude > 0)
 					_forward = data.direction;
 
+
 				if (delay.ExpiredOrNotRunning(Runner))
 				{
 					if ((data.buttons & NetworkInputData.MOUSEBUTTON1) != 0)
@@ -46,6 +47,10 @@ namespace Fusion104
 						{
 							o.GetComponent<PhysxBall>().Init( 10*_forward );
 						});
+					} else if ((data.buttons & NetworkInputData.JUMP) != 0)
+					{
+						delay = TickTimer.CreateFromSeconds(Runner, 0.2f);
+						_cc.Jump(true);
 					}
 				}
 			}
